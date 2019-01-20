@@ -28,8 +28,10 @@ class HelloHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/plain; charset=utf-8')
         self.end_headers()
 
+        content = self.path[1:]
         # Now, write the response body.
-        self.wfile.write("Hello, HTTP!\n".encode())
+        self.wfile.write(content.encode())
+        
 
 if __name__ == '__main__':
     server_address = ('', 8000)  # Serve on all addresses, port 8000.
