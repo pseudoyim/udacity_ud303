@@ -42,6 +42,7 @@
 # After writing each step, restart the server and run test.py to test it.
 
 import http.server
+import os
 import requests
 from urllib.parse import unquote, parse_qs
 
@@ -151,6 +152,8 @@ class Shortener(http.server.BaseHTTPRequestHandler):
             self.wfile.write("Sad! You got a 404, dude.".encode())
     
 if __name__ == '__main__':
-    server_address = ('', 8000)
+    port = int(os.environ.get('PORT', 8000))   # Use PORT if it's there.
+    print(f'Serer is running on PORT {port}.')
+    server_address = ('', port)
     httpd = http.server.HTTPServer(server_address, Shortener)
     httpd.serve_forever()
